@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import toast, { Toaster } from 'react-hot-toast';
 import './Cart.css'; // Import the CSS file for styling
 
@@ -186,7 +187,9 @@ const Cart = () => {
                 className="customer-input"
               />
             </div>
-            <button className="checkout-button" onClick={handleCheckout}>Checkout</button>
+            <Link to="/checkout">
+            <button className="checkout-button">Checkout</button>
+            </Link>
           </div>
         </div>
       )}
