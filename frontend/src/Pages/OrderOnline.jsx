@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import './orderOnline.css'; // Import your CSS for styling
 const menuData = [
   {
@@ -199,7 +200,9 @@ const OrderOnline = () => {
           className="search-bar"
           placeholder="Search for items..."
         />
-        <button onClick={handleCartClick} className="cart-button">Cart</button>
+         <Link to="/cart">
+        <button className="cart-button">Cart</button>
+        </Link>
       </div>
       <div className="menu">
         {filteredMenu.length === 0 ? (
