@@ -16,15 +16,34 @@ const Reservation = () => {
 
   const handleReservation = async (e) => {
     e.preventDefault();
+
+    const currentDate = new Date();
+    const selectedDate = new Date(date);
+    const selectedTime = new Date(`${date}T${time}`);
+
+    // Ensure the selected date is today or in the future
+    if (selectedDate < currentDate.setHours(0, 0, 0, 0)) {
+      toast.error("Reservation date must be today or a future date.");
+      return;
+    }
+
+    // Ensure the time is between 8 AM and 11 PM
+    const minTime = new Date(`${date}T08:00`);
+    const maxTime = new Date(`${date}T23:00`);
+    if (selectedTime < minTime || selectedTime > maxTime) {
+      toast.error("Reservation time must be between 8 AM and 11 PM.");
+      return;
+    }
+
+    // If booking for today, ensure the time is after the current time
+    if (selectedDate.toDateString() === currentDate.toDateString()) {
+      if (selectedTime <= currentDate) {
+        toast.error("Reservation time must be after the current time.");
+        return;
+      }
+    }
+
     try {
-      console.log("Sending reservation:", {
-        firstName,
-        lastName,
-        email,
-        phone,
-        date,
-        time,
-      });
       const { data } = await axios.post(
         "https://fooders-restaurant-backend.onrender.com/api/v1/reservation/send",
         { firstName, lastName, email, phone, date, time },
@@ -83,6 +102,7 @@ const Reservation = () => {
                   placeholder="Date"
                   value={date}
                   onChange={(e) => setDate(e.target.value)}
+                  min={new Date().toISOString().split("T")[0]} // Disable past dates
                 />
                 <input
                   type="time"
