@@ -108,7 +108,7 @@ const Checkout = () => {
   const getSessionId = async () => {
     try {
       const finalAmount = getFinalAmount(); // Get the final amount
-      let res = await axios.post("https://fooders-restaurant-backendcode.onrender.com/payment", { finalAmount }); // Pass finalAmount to backend
+      let res = await axios.post("https://fooders-restaurant-backend.onrender.com/payment", { finalAmount }); // Pass finalAmount to backend
       if (res.data && res.data.payment_session_id) {
         console.log(res.data);
         setOrderId(res.data.order_id);
@@ -121,7 +121,7 @@ const Checkout = () => {
 
   const verifyPayment = async (orderId) => {
     try {
-      let res = await axios.post("https://fooders-restaurant-backendcode.onrender.com/verify", {
+      let res = await axios.post("https://fooders-restaurant-backend.onrender.com/verify", {
         orderId: orderId
       });
 
@@ -135,7 +135,7 @@ const Checkout = () => {
           totalPrice: getFinalAmount(),
         };
 
-        await axios.post('https://fooders-restaurant-backendcode.onrender.com/api/v1/orders', orderData);
+        await axios.post('https://fooders-restaurant-backend.onrender.com/api/v1/orders', orderData);
 
         navigate('/successfullpayment'); // Navigate to /successfullpayment after successful payment
       }
