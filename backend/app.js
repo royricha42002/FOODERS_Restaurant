@@ -12,7 +12,7 @@ const app = express();
 dotenv.config({ path: "./config/.env" });
 app.use(
   cors({
-    origin: `https://fooders-restaurant-backendcode.onrender.com`,
+    origin: `https://fooders-restaurant-frontendcode.onrender.com`,
     methods: ["POST"],
     credentials: true,
   })
