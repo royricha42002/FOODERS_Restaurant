@@ -10,21 +10,11 @@ import orderRouter from './routes/orderRoute.js';
 // import { dbConnection } from "./database/dbConnection.js";
 const app = express();
 dotenv.config({ path: "./config/.env" });
-const allowedOrigins = [
-  'https://fooders-restaurant.onrender.com',
-  'https://fooders-restaurant-frontendcode.onrender.com',
-  // Add other allowed origins here if needed
-];
+const allowedOrigins = ['https://fooders-restaurant.onrender.com'];
 
 app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  credentials: true, // Include credentials if required
+  origin: allowedOrigins,
+  credentials: true,  // Allow credentials
 }));
 
 app.use(cors());
